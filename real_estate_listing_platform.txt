@@ -1,0 +1,167 @@
+// PropertySunday - Real Estate Listings Platform
+// Next.js with TailwindCSS and MongoDB
+import React, { useState, useE ect } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+export default function Home() {
+const [listings, setListings] = useState([]);
+const [search, setSearch] = useState("");
+const [ lters, setFilters] = useState({ minPrice: '', maxPrice: '', bedrooms: '', propertyType: '' });
+const router = useRouter();
+useE ect(() => {
+fetch('/api/listings')
+.then(res => res.json())
+.then(data => setListings(data));
+}, []);
+const handleListingClick = (id) => {
+router.push(`/listing/${id}`);
+};
+const lteredListings = listings. lter(listing => {
+return (
+listing.title.toLowerCase().includes(search.toLowerCase()) &&
+(! lters.minPrice || listing.price >= lters.minPrice) &&
+(! lters.maxPrice || listing.price <= lters.maxPrice) &&
+(! lters.bedrooms || listing.bedrooms == lters.bedrooms) &&
+(! lters.propertyType || listing.propertyType === lters.propertyType)
+);
+});
+
+fl
+
+fl
+
+fl
+
+fi
+
+fi
+
+fi
+
+fi
+
+fi
+
+fi
+
+ff
+
+fl
+
+fi
+
+fi
+
+fi
+
+ff
+
+fi
+
+fi
+
+fi
+
+fi
+
+return (
+<div className="min-h-screen bg-gray-100 p-6">
+<Head>
+<title>PropertySunday</title>
+</Head>
+<header className="bg-white shadow-md p-4 mb-6 ex ex-col md: ex-row justifybetween">
+<h1 className="text-4xl font-bold">PropertySunday Listings</h1>
+<Link href="/submit-listing">
+<button className="bg-green-500 text-white p-2 rounded hover:bg-green-600">
+Submit a Listing
+</button>
+</Link>
+<div className=" ex space-x-4 mt-4 md:mt-0">
+<input
+type="text"
+placeholder="Search properties..."
+className="border p-2 rounded"
+value={search}
+onChange={(e) => setSearch(e.target.value)}
+/>
+<input
+type="number"
+placeholder="Min Price"
+className="border p-2 rounded"
+value={ lters.minPrice}
+onChange={(e) => setFilters({ ... lters, minPrice: e.target.value })}
+
+fi
+
+fi
+
+fi
+
+fi
+
+fi
+
+fi
+
+fi
+
+fi
+
+fi
+
+/>
+<input
+type="number"
+placeholder="Max Price"
+className="border p-2 rounded"
+value={ lters.maxPrice}
+onChange={(e) => setFilters({ ... lters, maxPrice: e.target.value })}
+/>
+<input
+type="number"
+placeholder="Bedrooms"
+className="border p-2 rounded"
+value={ lters.bedrooms}
+onChange={(e) => setFilters({ ... lters, bedrooms: e.target.value })}
+/>
+<select
+className="border p-2 rounded"
+value={ lters.propertyType}
+onChange={(e) => setFilters({ ... lters, propertyType: e.target.value })}
+>
+<option value="">All Types</option>
+<option value="House">House</option>
+<option value="Apartment">Apartment</option>
+<option value="Condo">Condo</option>
+</select>
+</div>
+</header>
+<div className="container mx-auto mt-6">
+<h2 className="text-3xl font-bold mb-4">Latest Listings</h2>
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+{ lteredListings.length > 0 ? (
+lteredListings.map(listing => (
+<div
+key={listing.id}
+className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition cursorpointer"
+onClick={() => handleListingClick(listing.id)}
+>
+<h2 className="text-2xl font-semibold">{listing.title}</h2>
+<p className="text-lg text-gray-600">Price: ${listing.price}</p>
+<p className="text-lg text-gray-600">Bedrooms: {listing.bedrooms}</p>
+<p className="text-lg text-gray-600">Type: {listing.propertyType}</p>
+<span className="text-blue-500 hover:underline mt-2 block">View Details</span>
+</div>
+))
+):(
+<p className="text-center text-gray-500">No listings found. Try adjusting your lters.</
+p>
+)}
+</div>
+</div>
+</div>
+);
+}
+
+

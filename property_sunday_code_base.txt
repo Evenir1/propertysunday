@@ -1,0 +1,275 @@
+Property Sunday Code Base:
+// PropertySunday - Real Estate Listings Platform
+// Next.js with TailwindCSS and MongoDB
+import React, { useState, useE ect } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+export default function Home() {
+const [listings, setListings] = useState([]);
+const [search, setSearch] = useState("");
+const [ lters, setFilters] = useState({ minPrice: '', maxPrice: '', bedrooms: '' });
+const router = useRouter();
+useE ect(() => {
+fetch('/api/listings')
+.then(res => res.json())
+.then(data => setListings(data));
+}, []);
+const handleListingClick = (id) => {
+router.push(`/listing/${id}`);
+};
+const lteredListings = listings. lter(listing => {
+return (
+listing.title.toLowerCase().includes(search.toLowerCase()) &&
+(! lters.minPrice || listing.price >= lters.minPrice) &&
+(! lters.maxPrice || listing.price <= lters.maxPrice) &&
+(! lters.bedrooms || listing.bedrooms == lters.bedrooms)
+);
+});
+
+fl
+
+fl
+
+fl
+
+fi
+
+fi
+
+fi
+
+fi
+
+fi
+
+ff
+
+fl
+
+fi
+
+fi
+
+fi
+
+ff
+
+fi
+
+fi
+
+fi
+
+return (
+<div className="min-h-screen bg-gray-100 p-6">
+<Head>
+<title>PropertySunday</title>
+</Head>
+<header className="bg-white shadow-md p-4 mb-6 ex ex-col md: ex-row justifybetween">
+<h1 className="text-4xl font-bold">PropertySunday Listings</h1>
+<div className=" ex space-x-4 mt-4 md:mt-0">
+<input
+type="text"
+placeholder="Search properties..."
+className="border p-2 rounded"
+value={search}
+onChange={(e) => setSearch(e.target.value)}
+/>
+<input
+type="number"
+placeholder="Min Price"
+className="border p-2 rounded"
+value={ lters.minPrice}
+onChange={(e) => setFilters({ ... lters, minPrice: e.target.value })}
+/>
+<input
+type="number"
+placeholder="Max Price"
+
+className="border p-2 rounded"
+value={ lters.maxPrice}
+onChange={(e) => setFilters({ ... lters, maxPrice: e.target.value })}
+/>
+<input
+type="number"
+placeholder="Bedrooms"
+className="border p-2 rounded"
+value={ lters.bedrooms}
+onChange={(e) => setFilters({ ... lters, bedrooms: e.target.value })}
+/>
+</div>
+</header>
+<div className="container mx-auto mt-6">
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+{ lteredListings.map(listing => (
+<div
+key={listing.id}
+className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition cursorpointer"
+onClick={() => handleListingClick(listing.id)}
+>
+<h2 className="text-2xl font-semibold">{listing.title}</h2>
+<p className="text-lg text-gray-600">Price: ${listing.price}</p>
+<p className="text-lg text-gray-600">Bedrooms: {listing.bedrooms}</p>
+<span className="text-blue-500 hover:underline mt-2 block">View Details</span>
+</div>
+))}
+</div>
+</div>
+</div>
+);
+}
+
+Here’s a detailed plan to build **PropertySunday.com** (Zillow-style) and **OnShowMap.com**
+(Opendoor-style) tailored for South Africa, including style guides, API integrations, and a roadmap:
+--### **1. Style Guides**
+#### **PropertySunday.com** (Zillow-Inspired)
+**Color Palette**:
+- **Primary**: Terracotta Red (`#A84448`) – Re ects South African earth tones, warmth, trust.
+- **Secondary**: Sand Beige (`#D7C9AA`) – Neutrality, simplicity.
+- **Accent**: Olive Green (`#6B8E23`) – Growth, nature.
+**Typography**:
+- **Headings**: Playfair Display (elegant, authoritative).
+- **Body**: Open Sans (clean, mobile-friendly).
+**UI Elements**:
+- Listing cards with hover e ects and "Instant Bid" buttons.
+- Search lters with sliders for price, bedrooms, and location.
+- Mobile- rst design with a "Save to Favorites" heart icon.
+
+fl
+
+fi
+
+fi
+
+ff
+
+fi
+
+fi
+
+fi
+
+fi
+
+fi
+
+![PropertySunday Style Guide](https://via.placeholder.com/600x400.png/000000?
+text=PropertySunday+UI+Example)
+
+#### **OnShowMap.com** (Opendoor-Inspired)
+**Color Palette**:
+- **Primary**: Deep Blue (`#2A3F54`) – Trust, professionalism.
+- **Secondary**: Gold (`#FFD700`) – Luxury, urgency.
+- **Accent**: Light Gray (`#F5F5F5`) – Modernity.
+**Typography**:
+- **Headings**: Montserrat (bold, tech-savvy).
+- **Body**: Lato (readable, neutral).
+**UI Elements**:
+- Instant o er calculator with a sliding scale for property value.
+- Interactive heatmaps for high-demand areas in Cape Town/Johannesburg.
+- "Sell Now" CTA buttons with gold accents.
+![OnShowMap Style Guide](https://via.placeholder.com/600x400.png/000000?
+text=OnShowMap+UI+Example)
+--### **2. API Integrations for South Africa**
+#### **Core APIs**
+1. **Property Listings**:
+- **Property24 API**: Pull live listings (price, location, images).
+- **Private Property API**: Access 100k+ South African residential/commercial properties.
+- **Google Maps API**: Display properties with tra c/pricing layers.
+2. **Valuation & O ers (OnShowMap)**:
+- **Prop Data API**: Automated property valuations using SA market data.
+- **Lightstone API**: Historical sales data for instant o ers.
+3. **Agent Integration**:
+- **RealNet**: Connect with 15k+ registered SA real estate agents.
+- **Lead Generation**: Zapier webhooks to sync agent CRM systems (e.g., Salesforce).
+#### **Sample API Code**
+```javascript
+// Fetch Property24 Listings for PropertySunday.com
+const fetchListings = async () => {
+const response = await fetch('https://api.property24.com/listings', {
+headers: {
+'Authorization': 'Bearer YOUR_API_KEY',
+'Content-Type': 'application/json'
+}
+});
+const data = await response.json();
+return data.listings;
+};
+// OnShowMap Instant O er Calculator (Prop Data API)
+const calculateO er = async (propertyId) => {
+const response = await fetch(`https://api.propdata.co.za/valuations/${propertyId}`);
+const valuation = await response.json();
+return valuation.instantO er * 0.95; // 5% Opendoor-style service fee
+};
+```
+---
+
+ff
+
+ffi
+
+ff
+
+ff
+
+ff
+
+ff
+
+ff
+
+### **3. Roadmap for South African Market**
+
+#### **Phase 1: MVP Launch (0–3 Months)**
+- **PropertySunday**:
+- Integrate Property24/Private Property APIs to display 10k+ live listings.
+- Launch in Cape Town with 50+ agents.
+- **OnShowMap**:
+- Build instant o er tool using Prop Data API (Johannesburg pilot).
+- Partner with 10+ agencies for direct sales.
+#### **Phase 2: Growth (4–6 Months)**
+- Add **virtual tours** via SA-based platform See Virtual Tours.
+- Integrate **PayFast** for seamless transaction payments.
+- Launch mobile apps with o ine search for low-connectivity areas.
+#### **Phase 3: Scaling (7–12 Months)**
+- Expand to Durban and Pretoria.
+- Add **AI chatbot** for Zulu/Xhosa/English support.
+- Partner with SA Home Loans for mortgage integrations.
+--### **4. Local Market Validation**
+#### **1. Property24**
+- **Why It Works**: 80% of SA buyers use Property24; 200k+ listings.
+- **Gap**: PropertySunday’s auction-style “Sunday Deals” create urgency missing in SA.
+#### **2. See Properties**
+- **Why It Works**: 60+ years in SA; dominates luxury market.
+- **Gap**: OnShowMap’s instant o ers compete with slow traditional sales.
+#### **3. PayProp**
+- **Why It Works**: 70% of SA rental agencies use PayProp for payments.
+- **Gap**: PropertySunday can integrate rentals with bidding features.
+--### **5. Key Stats for SA Market**
+- **Online property searches** grew by 65% post-COVID (Lightstone).
+- **Cape Town** has the highest demand (R1.8M avg home price).
+- **60% of buyers** under 35 prefer mobile- rst platforms (SA Real Estate Board).
+--### **6. Next Steps**
+1. Hire a **local dev team** familiar with SA APIs (Python/Django or Node.js).
+2. Test MVP with **Gauteng-based agents** (highest transaction volume).
+3. Use **Google Ads** to target keywords like “buy property Johannesburg” or “sell house fast
+SA.”
+
+fi
+
+ff
+
+fi
+
+ff
+
+ffl
+
+ff
+
+ff
+
+Need help with wireframes or API documentation? Let’s re ne this! 🏘 🚀
+
+

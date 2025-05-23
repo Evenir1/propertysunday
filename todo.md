@@ -1,0 +1,33 @@
+- [x] Extract text from "Property Sunday Code Base and colour pallette .pdf"
+- [x] Extract text from "Real Estate Listing Platform .pdf"
+- [x] Review extracted text from both PDFs
+- [x] Design application architecture (completed, see /home/ubuntu/application_architecture.md)
+- [x] Select appropriate tech stack and template (completed, see /home/ubuntu/tech_stack_selection.md)
+- [x] Create Next.js frontend application (propertysunday_frontend)
+- [x] Create Flask backend application (propertysunday_backend)
+- [x] Implement user registration and login (backend)
+- [x] Implement user registration and login (frontend)
+- [x] Implement property listing model (backend)
+- [x] Implement API for creating manual property listings (backend)
+- [x] Implement API for fetching property listings (backend)
+- [x] Implement UI for displaying property listings (frontend)
+- [x] Implement property search and filtering (backend)
+- [x] Implement property search and filtering (frontend)
+- [x] Research and document API integration options for PrivateProperty.com (backend) - Drafted email for user to contact `feeds@privateproperty.co.za` for *pulling* listings. (see /home/ubuntu/integration_research_notes.md & /home/ubuntu/draft_email_to_privateproperty.md).
+- [x] Research and document API integration options for Property24.com (backend) - Direct *pull* API elusive; syndication services focus on *pushing* listings. (see /home/ubuntu/integration_research_notes.md).
+- [x] Implement user account management (my listings, saved searches) (backend)
+- [x] Implement user account management (my listings, saved searches) (frontend) - My Listings page created, styled, AdDisplay integrated.
+- [x] Implement charged listings feature (backend - payment integration) - Listing model and payment routes updated.
+- [x] Implement charged listings feature (frontend - UI indicators, payment flow) - Listing upgrade page created, styled, AdDisplay integrated.
+- [x] Implement advertising feature (backend - ad management) - Ad model and API routes created.
+- [x] Implement advertising feature (frontend - display ads) - AdDisplay component created and integrated into Listings, Home, Account, Upgrade Listing, Create Listing, and Listing Detail pages.
+- [x] Apply custom styling based on provided color palette and Zillow inspiration with differential aspects (frontend) - Completed: Listings, Register, Login, Home, My Listings, Upgrade Listing, Create Listing, and Listing Detail pages styled.
+- [x] Validate all implemented features, styling, and documentation. (see /home/ubuntu/validation_report.md)
+- [x] Prepare final report and provide all deliverables to the user.
+- [x] Install and configure MySQL server for backend deployment (Reconfigured to use port 3307 due to conflicts).- [x] Create database and user for PropertySunday.com in MySQL.- [x] Update backend application configuration with database credentials.- [ ] Install backend dependencies and run database migrations.
+- [ ] Deploy Flask backend application.
+- [ ] Expose backend application port.
+- [ ] Configure frontend to communicate with deployed backend API.
+- [ ] Deploy updated frontend with backend integration for live review.
+- [ ] Conduct user review and gather feedback on the live, interactive site.
+- [ ] Finalize and report full production deployment (or steps for user to do so with their domain).
